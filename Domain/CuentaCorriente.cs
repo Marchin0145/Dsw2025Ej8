@@ -24,13 +24,28 @@ namespace Dsw2025Ej8.Domain
         public override void Retirar(decimal monto)
         {
 
-            if (_saldo - monto >= -_limiteDeDescubierto)
+            try
             {
-                _saldo -= monto;
+
+                if (_saldo - monto <= -_limiteDeDescubierto)
+                {
+                    _saldo -= monto;
+
+                }
+                else {
+                    throw new SaldoInsuficiente("La cuenta no cuenta con saldo para la operacion solicitada.");
+                }
+                if (_saldo < 0)
+                {
+
+                    _estado = Estado.Suspendida;
+                    throw new SaldoInsuficiente();
+                }
+
             }
-            if (_saldo < 0)
+            catch (SaldoInsuficiente ex)
             {
-                _estado = Estado.Suspendida;
+                Console.WriteLine(ex.Message);
             }
         }
     }
