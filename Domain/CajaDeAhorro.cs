@@ -30,11 +30,14 @@ namespace Dsw2025Ej8.Domain
 
                 this.VerificarEstado();
                 ValidarMonto(monto);
-                _saldo -= monto;
-
-                if (_saldo < monto) {
+                if (_saldo < 0 || _saldo<monto)
+                {
+                    _estado = Estado.Suspendida;
                     throw new SaldoInsuficiente();
                 }
+                _saldo -= monto;
+
+                
             }catch (MontoNoValidoException ex){ Console.WriteLine(ex.Message);} catch (CuentaNoActiva ex){Console.WriteLine($"ERROR:{ex.Message}"); }catch (SaldoInsuficiente ex){ Console.WriteLine(ex.Message);}  
                 
              
@@ -47,7 +50,7 @@ namespace Dsw2025Ej8.Domain
                 this.VerificarEstado();
                 _saldo += _saldo * _tasaDeInteres;
             }
-            catch (CuentaNoActiva ex) { Console.WriteLine(ex); }
+            catch (CuentaNoActiva ex) { Console.WriteLine($"ERROR:{ex.Message}"); }
     }
     }
 }

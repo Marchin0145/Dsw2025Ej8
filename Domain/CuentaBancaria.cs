@@ -1,13 +1,11 @@
 ﻿namespace Dsw2025Ej8.Domain;
 
-public class CuentaNoActiva : Exception {
-    public CuentaNoActiva(string mensaje):base(mensaje){ } 
-}
+
 public abstract class CuentaBancaria
 {
     public TipoCuenta _tipo { get;}
     public string _numero { get;}
-    public decimal _saldo { get; set;}
+    public decimal _saldo { get; protected set;}
     public Estado _estado { get; set;}
     public decimal _tasaDeInteres { get; init;}
     public decimal _limiteDeDescubierto { get; init;}

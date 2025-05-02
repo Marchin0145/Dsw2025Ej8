@@ -39,11 +39,12 @@ namespace Dsw2025Ej8.Domain
                  ValidarMonto(monto);
                 if (_saldo - monto >= -_limiteDeDescubierto)
                 {
-                    _saldo -= monto;
+                   _saldo -= monto;
                 }
                 else
                 {
-                    throw new SaldoInsuficiente("La cuenta no cuenta con saldo para la operacion solicitada.");
+                    _estado = Estado.Suspendida;
+                    throw new SaldoInsuficiente();
                 }
                 if (_saldo < 0)
                 {
