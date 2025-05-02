@@ -41,37 +41,21 @@ namespace Dsw2025Ej8.Domain
                 {
                     _saldo -= monto;
                 }
+                else
+                {
+                    throw new SaldoInsuficiente("La cuenta no cuenta con saldo para la operacion solicitada.");
+                }
                 if (_saldo < 0)
                 {
                     _estado = Estado.Suspendida;
+                    throw new SaldoInsuficiente();
                 }
 
 
             } catch (CuentaNoActiva ex) { Console.WriteLine($"Error{ex.Message}"); } catch (MontoNoValidoException ex)
             {
                 Console.WriteLine(ex.Message);
-            }
-           
-
-            try
-            {
-
-                if (_saldo - monto <= -_limiteDeDescubierto)
-                {
-                    _saldo -= monto;
-
-                }
-                else {
-                    throw new SaldoInsuficiente("La cuenta no cuenta con saldo para la operacion solicitada.");
-                }
-                if (_saldo < 0)
-                {
-
-                    _estado = Estado.Suspendida;
-                    throw new SaldoInsuficiente();
-                }
-
-            }
+            }        
             catch (SaldoInsuficiente ex)
             {
                 Console.WriteLine(ex.Message);

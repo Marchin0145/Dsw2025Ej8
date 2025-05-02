@@ -31,7 +31,11 @@ namespace Dsw2025Ej8.Domain
                 this.VerificarEstado();
                 ValidarMonto(monto);
                 _saldo -= monto;
-            }catch (MontoNoValidoException ex){ Console.WriteLine(ex.Message);} catch (CuentaNoActiva ex){Console.WriteLine($"ERROR:{ex.Message}"); }
+
+                if (_saldo < monto) {
+                    throw new SaldoInsuficiente();
+                }
+            }catch (MontoNoValidoException ex){ Console.WriteLine(ex.Message);} catch (CuentaNoActiva ex){Console.WriteLine($"ERROR:{ex.Message}"); }catch (SaldoInsuficiente ex){ Console.WriteLine(ex.Message);}  
                 
              
         }
