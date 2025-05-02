@@ -1,10 +1,10 @@
 ﻿namespace Dsw2025Ej8.Domain;
 
-public class CuentaBancaria
+public abstract class CuentaBancaria
 {
     private TipoCuenta _tipo;
     private string _numero;
-    private decimal _saldo;
+    public decimal _saldo { get; set;}
     private Estado _estado;
     private decimal _tasaDeInteres;
     private decimal _limiteDeDescubierto;
@@ -80,43 +80,8 @@ public class CuentaBancaria
     }
     #endregion
 
-    public void Depositar(decimal monto)
-    {
-        if (_tipo == TipoCuenta.CajaDeAhorro)
-        {
-            _saldo += monto;
-        }
-        else if (_tipo == TipoCuenta.CuentaCorriente)
-        {
-            monto -= monto * _comision;
-            _saldo += monto;
-        }
-    }
+    public abstract void Depositar(decimal monto);
 
-    public void Retirar(decimal monto)
-    {
-        if (_tipo == TipoCuenta.CajaDeAhorro)
-        {
-            _saldo -= monto;
-        }
-        else if (_tipo == TipoCuenta.CuentaCorriente)
-        {
-            if (_saldo - monto >= -_limiteDeDescubierto)
-            {
-                _saldo -= monto;
-            }
-            if (_saldo < 0)
-            {
-                _estado = Estado.Suspendida;
-            }
-        }
-    }
+    public abstract void Retirar(decimal monto);
 
-    public void AplicarInteres()
-    {
-        if (_tipo == TipoCuenta.CajaDeAhorro)
-        {
-            _saldo += _saldo * _tasaDeInteres;
-        }
-    }
 }
