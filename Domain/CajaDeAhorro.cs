@@ -20,9 +20,9 @@ namespace Dsw2025Ej8.Domain
         }
         public void AplicarInteres()
     {
-        if (GetTipo() == TipoCuenta.CajaDeAhorro)
+        if (_tipo == TipoCuenta.CajaDeAhorro)
         {
-            _saldo += _saldo *GetTasaDeInteres(;
+            _saldo += _saldo *_tasaDeInteres;
         }
     }
     }

@@ -6,8 +6,8 @@ public abstract class CuentaBancaria
     public string _numero { get;}
     public decimal _saldo { get; set;}
     public Estado _estado { get; set;}
-    public decimal _tasaDeInteres { get; set;}
-    public decimal _limiteDeDescubierto { get; set;}
+    public decimal _tasaDeInteres { get; init;}
+    public decimal _limiteDeDescubierto { get; init;}
     public decimal _comision { get; set;}
     public string[] _titulares { get;}
 

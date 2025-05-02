@@ -10,7 +10,7 @@ namespace Dsw2025Ej8.Domain
     internal class CuentaCorriente : CuentaBancaria
     {
 
-        public CuentaCorriente(string numero, decimal saldo, string[] titulares) : base(numero, saldo,TipoCuenta.CuentaCorriente, titulares)
+        public CuentaCorriente(string numero, decimal saldo, string[] titulares) : base(numero, saldo, TipoCuenta.CuentaCorriente, titulares)
         {
 
         }
@@ -21,7 +21,8 @@ namespace Dsw2025Ej8.Domain
             _saldo += monto;
         }
 
-        public override void Retirar(decimal monto) {
+        public override void Retirar(decimal monto)
+        {
 
             if (_saldo - monto >= -_limiteDeDescubierto)
             {
@@ -32,5 +33,5 @@ namespace Dsw2025Ej8.Domain
                 _estado = Estado.Suspendida;
             }
         }
-
+    }
 }
