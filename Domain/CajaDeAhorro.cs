@@ -12,12 +12,30 @@ namespace Dsw2025Ej8.Domain
         
         }
         public override void Depositar(decimal monto) {
-            _saldo += monto;
+
+            try
+            {
+                ValidarMonto(monto);
+                _saldo += monto;
+            }
+            catch (MontoNoValidoException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
         public override void Retirar(decimal monto)
         {
-            _saldo -= monto;
+            try
+            {
+                ValidarMonto(monto);
+                _saldo -= monto;
+            }
+            catch (MontoNoValidoException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
+
         public void AplicarInteres()
     {
         if (_tipo == TipoCuenta.CajaDeAhorro)
