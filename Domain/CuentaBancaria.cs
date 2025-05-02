@@ -1,5 +1,8 @@
 ﻿namespace Dsw2025Ej8.Domain;
 
+public class CuentaNoActiva : Exception {
+    public CuentaNoActiva(string mensaje):base(mensaje){ } 
+}
 public abstract class CuentaBancaria
 {
     public TipoCuenta _tipo { get;}
@@ -23,5 +26,11 @@ public abstract class CuentaBancaria
     public abstract void Depositar(decimal monto);
 
     public abstract void Retirar(decimal monto);
+    public void VerificarEstado() {
+        if (_estado != Estado.Activa)
+        {
+            throw new CuentaNoActiva($" No se puede operar con la cuenta {_estado.ToString()}");
+        }
+    }
 
 }
