@@ -17,20 +17,35 @@ namespace Dsw2025Ej8.Domain
 
         public override void Depositar(Decimal monto)
         {
-            monto -= monto * _comision;
-            _saldo += monto;
+            try
+            {
+                ValidarMonto(monto);
+                monto -= monto * _comision;
+                _saldo += monto;
+            }
+            catch (MontoNoValidoException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
         public override void Retirar(decimal monto)
         {
-
-            if (_saldo - monto >= -_limiteDeDescubierto)
+            try
             {
-                _saldo -= monto;
+                ValidarMonto(monto);
+                if(_saldo - monto >= -_limiteDeDescubierto)
+                {
+                    _saldo -= monto;
+                }
+                if (_saldo < 0)
+                {
+                    _estado = Estado.Suspendida;
+                }
             }
-            if (_saldo < 0)
+            catch (MontoNoValidoException ex)
             {
-                _estado = Estado.Suspendida;
+                Console.WriteLine(ex.Message);
             }
         }
     }
