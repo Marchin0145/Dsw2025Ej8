@@ -12,20 +12,30 @@ namespace Dsw2025Ej8.Domain
         
         }
         public override void Depositar(decimal monto) {
+
             try
             {
                 this.VerificarEstado();
+                ValidarMonto(monto);
                 _saldo += monto;
-            }catch(CuentaNoActiva ex){Console.WriteLine($"ERROR:{ex.Message}");}
+            }catch(CuentaNoActiva ex){Console.WriteLine($"ERROR:{ex.Message}");} catch (MontoNoValidoException ex)
+            { Console.WriteLine(ex.Message);}
+
+
         }
         public override void Retirar(decimal monto)
         {
             try
             {
+
                 this.VerificarEstado();
+                ValidarMonto(monto);
                 _saldo -= monto;
-            }catch (CuentaNoActiva ex){Console.WriteLine($"ERROR:{ex.Message}"); }
+            }catch (MontoNoValidoException ex){ Console.WriteLine(ex.Message);} catch (CuentaNoActiva ex){Console.WriteLine($"ERROR:{ex.Message}"); }
+                
+             
         }
+
         public void AplicarInteres()
     {
             try

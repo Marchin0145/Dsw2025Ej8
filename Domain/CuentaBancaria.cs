@@ -33,4 +33,12 @@ public abstract class CuentaBancaria
         }
     }
 
+    public void ValidarMonto(decimal monto)
+    {
+            if(monto <= 0)
+            {
+                throw new MontoNoValidoException();
+            }
+    }
+
 }

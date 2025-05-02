@@ -19,21 +19,24 @@ namespace Dsw2025Ej8.Domain
         {
             try
             {
+
                 this.VerificarEstado();
+                  ValidarMonto(monto);
                 monto -= monto * _comision;
                 _saldo += monto;
 
             }
             catch (CuentaNoActiva ex) { 
-            Console.WriteLine($"ERROR{ex.Message}");
-            }
+            Console.WriteLine($"ERROR{ex.Message}");} catch (MontoNoValidoException ex){Console.WriteLine(ex.Message);}
            
         }
 
         public override void Retirar(decimal monto)
         {
+
             try {
                 this.VerificarEstado();
+                 ValidarMonto(monto);
                 if (_saldo - monto >= -_limiteDeDescubierto)
                 {
                     _saldo -= monto;
@@ -43,8 +46,13 @@ namespace Dsw2025Ej8.Domain
                     _estado = Estado.Suspendida;
                 }
 
-            } catch (CuentaNoActiva ex) { Console.WriteLine($"Error{ex.Message}"); }
+
+            } catch (CuentaNoActiva ex) { Console.WriteLine($"Error{ex.Message}"); } catch (MontoNoValidoException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
            
+
         }
     }
 }
